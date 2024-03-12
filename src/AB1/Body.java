@@ -1,18 +1,22 @@
 package AB1;
 
+import static AB1.Simulation.G;
+
 import codedraw.CodeDraw;
 
 /**
  * This class represents celestial bodies like stars, planets, asteroids, teapots, etc..
  */
 public class Body {
+    private double mass;
+    private Vector3 massCenter; // position of the center of mass.
+    private Vector3 currentMovement;
 
-    //TODO: change modifiers.
-    public double mass;
-    public Vector3 massCenter; // position of the center of mass.
-    public Vector3 currentMovement;
-
-    //TODO: define constructor.
+    public Body(double mass, Vector3 massCenter, Vector3 currentMovement) {
+        this.mass = mass;
+        this.massCenter = massCenter;
+        this.currentMovement = currentMovement;
+    }
 
     /**
      * Returns the distance between the centers of mass of this body and the specified body 'b'.
@@ -20,9 +24,7 @@ public class Body {
      * @return the distance between the centers of mass of this body and the specified body 'b'.
      */
     public double distanceTo(Body b) {
-
-        //TODO: implement method.
-        return 0;
+        return this.massCenter.distanceTo(b.massCenter);
     }
 
     /**
@@ -34,9 +36,11 @@ public class Body {
      * @return the acceleration vector.
      */
     public Vector3 acceleration(Body b) {
-
-        //TODO: implement method.
-        return null;
+        Vector3 direction = b.massCenter.minus(this.massCenter);
+        double distance = direction.length();
+        direction.normalize();
+        double length = G * b.mass / (distance*distance);
+        return direction.times(length);
     }
 
     /**
@@ -46,8 +50,8 @@ public class Body {
      * @param acceleration the acceleration vector, acceleration != null.
      */
     public void accelerate(Vector3 acceleration) {
-
-        //TODO: implement method.
+        this.currentMovement = this.currentMovement.plus(acceleration);
+        this.massCenter = this.massCenter.plus(this.currentMovement);
     }
 
     /**
@@ -57,9 +61,7 @@ public class Body {
      * @return the radius of this body.
      */
     public double getRadius() {
-
-        //TODO: implement method.
-        return 0d;
+        return SpaceDraw.massToRadius(this.mass);
     }
 
     /**
@@ -72,9 +74,14 @@ public class Body {
      * @return the body being formed by the collision.
      */
     public Body merge(Body b) {
-
-        //TODO: implement method.
-        return null;
+        double resultingMass = this.mass + b.mass;
+        Vector3 resultingMassCenter = this.massCenter.times(this.mass)
+            .plus(b.massCenter.times(b.mass))
+            .times(1/resultingMass);
+        Vector3 resultingCurrentMovement = this.currentMovement.times(this.mass)
+            .plus(b.currentMovement.times(b.mass))
+            .times(1/resultingMass);
+        return new Body(resultingMass, resultingMassCenter, resultingCurrentMovement);
     }
 
     /**
@@ -86,8 +93,8 @@ public class Body {
      * @param cd the CodeDraw object used for drawing, cd != null.
      */
     public void draw(CodeDraw cd) {
-
-        //TODO: implement method.
+        cd.setColor(SpaceDraw.massToColor(this.mass));
+        this.massCenter.drawAsFilledCircle(cd, this.getRadius());
     }
 
     /**
@@ -97,9 +104,7 @@ public class Body {
      * @return 'this' represented as a string.
      */
     public String toString() {
-
-        //TODO: implement method.
-        return "";
+        return STR."\{ this.mass } kg, position: \{ this.massCenter }, movement: \{ this.currentMovement } m/s.";
     }
 }
 

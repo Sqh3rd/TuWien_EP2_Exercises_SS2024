@@ -56,11 +56,11 @@ nb-configuration.xml
 ######################
 # IDEA
 ######################
-#*.iml
-#*.ipr
-#*.iws
-#.idea/
-#atlassian-ide-plugin.xml
+*.iml
+*.ipr
+*.iws
+.idea/
+atlassian-ide-plugin.xml
 
 
 ######################
