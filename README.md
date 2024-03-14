@@ -5,6 +5,3 @@ Die Angabe für die 1. Aufgabe finden Sie in
 die zugehörigen .java-Dateien in src/AB1
 
 Entsprechend für die weiteren Aufgaben.
-
-Sehr wichtige Infos:
-- keine
