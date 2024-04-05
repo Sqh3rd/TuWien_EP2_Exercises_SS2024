@@ -3,7 +3,6 @@ package AB2.Collections.List;
 import java.util.Objects;
 
 import AB2.ArrayUtils;
-import AB2.Scaling;
 
 abstract class ProtoList<T> implements List<T>
 {

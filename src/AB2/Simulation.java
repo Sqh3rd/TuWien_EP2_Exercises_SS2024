@@ -1,7 +1,6 @@
 package AB2;
 
 import java.awt.*;
-import java.time.Instant;
 import java.util.Random;
 
 import AB1.Vector3;
@@ -61,8 +60,6 @@ public class Simulation
 
         double seconds = 0;
 
-        long lastFramEnd = Instant.now().toEpochMilli();
-
         // simulation loop
         while (true)
         {
@@ -114,10 +111,6 @@ public class Simulation
 
                 // show new positions
                 cd.show();
-
-                long frameEnd2 = Instant.now().toEpochMilli();
-                System.out.println(STR."\{ frameEnd2 - lastFramEnd}ms");
-                lastFramEnd = frameEnd2;
             }
 
         }

@@ -1,4 +1,4 @@
-package AB2;
+package AB2.Collections.List;
 
 public class Scaling
 {
