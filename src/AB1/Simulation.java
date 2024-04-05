@@ -1,6 +1,7 @@
 package AB1;
 
 import java.awt.*;
+import java.time.Instant;
 import java.util.Random;
 
 import codedraw.CodeDraw;
@@ -8,7 +9,7 @@ import codedraw.CodeDraw;
 /*
     ADDITIONAL QUESTIONS:
         1) What is Data Encapsulation?
-            Date Encapsulation describes the concept of "encapsulating" data and functionality that logically belong
+            Data Encapsulation describes the concept of "encapsulating" data and functionality that logically belong
             together by for example having them in the same class (e.g. moving the Vector Math Functions into the
             Vector3 Class)
 
@@ -83,36 +84,38 @@ public class Simulation
 
         double seconds = 0;
 
+        long frameEnd = Instant.now().toEpochMilli();
+
         // simulation loop
         while (true)
         {
             seconds++; // each iteration computes the movement of the celestial bodies within one second.
 
             // merge bodies that have collided
-            for (int i = 0; i < bodies.length; i++)
-            {
-                for (int j = i + 1; j < bodies.length; j++)
-                {
-                    if (bodies[j].distanceTo(bodies[i]) < bodies[j].getRadius() + bodies[i].getRadius())
-                    {
-                        // collision of bodies i and j
-                        bodies[i] = bodies[i].merge(bodies[j]);
-
-                        // generate a duplicate of the array with body j removed.
-                        Body[] bodiesOneRemoved = new Body[bodies.length - 1];
-                        for (int k = 0; k < bodiesOneRemoved.length; k++)
-                        {
-                            bodiesOneRemoved[k] = bodies[k < j ? k : k + 1];
-                        }
-                        bodies = bodiesOneRemoved;
-
-                        // since the body index i changed size there might be new collisions
-                        // at all positions of bodies, so start all over again
-                        i = -1;
-                        j = bodies.length;
-                    }
-                }
-            }
+//            for (int i = 0; i < bodies.length; i++)
+//            {
+//                for (int j = i + 1; j < bodies.length; j++)
+//                {
+//                    if (bodies[j].distanceTo(bodies[i]) < bodies[j].getRadius() + bodies[i].getRadius())
+//                    {
+//                        // collision of bodies i and j
+//                        bodies[i] = bodies[i].merge(bodies[j]);
+//
+//                        // generate a duplicate of the array with body j removed.
+//                        Body[] bodiesOneRemoved = new Body[bodies.length - 1];
+//                        for (int k = 0; k < bodiesOneRemoved.length; k++)
+//                        {
+//                            bodiesOneRemoved[k] = bodies[k < j ? k : k + 1];
+//                        }
+//                        bodies = bodiesOneRemoved;
+//
+//                        // since the body index i changed size there might be new collisions
+//                        // at all positions of bodies, so start all over again
+//                        i = -1;
+//                        j = bodies.length;
+//                    }
+//                }
+//            }
 
             // for each body (with index i): compute its total acceleration.
             for (int i = 0; i < bodies.length; i++)
@@ -149,6 +152,10 @@ public class Simulation
 
                 // show new positions
                 cd.show();
+
+                long frameEnd2 = Instant.now().toEpochMilli();
+                System.out.println(STR."\{ frameEnd2 - frameEnd }ms");
+                frameEnd = frameEnd2;
             }
 
         }
