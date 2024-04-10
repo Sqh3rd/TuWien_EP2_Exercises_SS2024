@@ -1,6 +1,7 @@
 package AB1;
 
 import static AB1.Simulation.G;
+import static java.lang.StringTemplate.STR;
 
 import codedraw.CodeDraw;
 
