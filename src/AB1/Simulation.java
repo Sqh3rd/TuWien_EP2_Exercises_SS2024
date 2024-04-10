@@ -92,30 +92,30 @@ public class Simulation
             seconds++; // each iteration computes the movement of the celestial bodies within one second.
 
             // merge bodies that have collided
-//            for (int i = 0; i < bodies.length; i++)
-//            {
-//                for (int j = i + 1; j < bodies.length; j++)
-//                {
-//                    if (bodies[j].distanceTo(bodies[i]) < bodies[j].getRadius() + bodies[i].getRadius())
-//                    {
-//                        // collision of bodies i and j
-//                        bodies[i] = bodies[i].merge(bodies[j]);
-//
-//                        // generate a duplicate of the array with body j removed.
-//                        Body[] bodiesOneRemoved = new Body[bodies.length - 1];
-//                        for (int k = 0; k < bodiesOneRemoved.length; k++)
-//                        {
-//                            bodiesOneRemoved[k] = bodies[k < j ? k : k + 1];
-//                        }
-//                        bodies = bodiesOneRemoved;
-//
-//                        // since the body index i changed size there might be new collisions
-//                        // at all positions of bodies, so start all over again
-//                        i = -1;
-//                        j = bodies.length;
-//                    }
-//                }
-//            }
+            for (int i = 0; i < bodies.length; i++)
+            {
+                for (int j = i + 1; j < bodies.length; j++)
+                {
+                    if (bodies[j].distanceTo(bodies[i]) < bodies[j].getRadius() + bodies[i].getRadius())
+                    {
+                        // collision of bodies i and j
+                        bodies[i] = bodies[i].merge(bodies[j]);
+
+                        // generate a duplicate of the array with body j removed.
+                        Body[] bodiesOneRemoved = new Body[bodies.length - 1];
+                        for (int k = 0; k < bodiesOneRemoved.length; k++)
+                        {
+                            bodiesOneRemoved[k] = bodies[k < j ? k : k + 1];
+                        }
+                        bodies = bodiesOneRemoved;
+
+                        // since the body index i changed size there might be new collisions
+                        // at all positions of bodies, so start all over again
+                        i = -1;
+                        j = bodies.length;
+                    }
+                }
+            }
 
             // for each body (with index i): compute its total acceleration.
             for (int i = 0; i < bodies.length; i++)
