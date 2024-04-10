@@ -1,7 +1,6 @@
 package AB1;
 
 import java.awt.*;
-import java.time.Instant;
 import java.util.Random;
 
 import codedraw.CodeDraw;
@@ -84,8 +83,6 @@ public class Simulation
 
         double seconds = 0;
 
-        long frameEnd = Instant.now().toEpochMilli();
-
         // simulation loop
         while (true)
         {
@@ -152,12 +149,7 @@ public class Simulation
 
                 // show new positions
                 cd.show();
-
-                long frameEnd2 = Instant.now().toEpochMilli();
-                System.out.println(STR."\{ frameEnd2 - frameEnd }ms");
-                frameEnd = frameEnd2;
             }
-
         }
     }
 }
