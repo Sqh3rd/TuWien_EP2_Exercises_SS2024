@@ -3,7 +3,6 @@ package AB3;
 import java.awt.*;
 import java.util.Random;
 
-import AB3.Collections.List.Standard.UnsortedList;
 import codedraw.CodeDraw;
 
 /**
@@ -61,37 +60,28 @@ public class Simulation
         {
             seconds++; // each iteration computes the movement of the celestial bodies within one second.
 
-            // List used here since if I were to use a Queue for this operation and a work colleague would see that
-            // I'd probably get an appointment with a therapist
-            UnsortedList<Body> bodyList = UnsortedList.<Body>builder()
-                .withInitialArray(new Body[NUMBER_OF_BODIES])
-                .build();
-            while (bodies.size() > 0) {
-                bodyList.push(bodies.poll());
-            }
-            // merge bodies that have collided
-            for (int i = 0; i < bodyList.count(); i++)
-            {
-                for (int j = i + 1; j < bodyList.count(); j++)
-                {
-                    if (bodyList.get(j).distanceTo(bodyList.get(i)) >=
-                        bodyList.get(j).getRadius() + bodyList.get(i).getRadius())
-                        continue;
+            BodyQueue bodiesCopy;
 
-                    bodyList.replace(bodyList.get(i).merge(bodyList.get(j)), i);
-                    bodyList.remove(j);
+            for (int i = 0; i < bodies.size(); i++)
+            {
+                bodiesCopy = new BodyQueue(bodies);
+                Body current = bodies.poll();
+                for (int j = 0; j < bodiesCopy.size(); j++)
+                {
+                    Body other = bodiesCopy.poll();
+                    if (current == other ||
+                        current.distanceTo(other) >= current.getRadius() + other.getRadius()) continue;
+
+                    current = current.merge(other);
+                    bodies.remove(other);
 
                     i = -1;
                     break;
                 }
+                bodies.add(current);
             }
 
-            for (int i = 0; i < bodyList.count(); i++)
-            {
-                bodies.add(bodyList.get(i));
-            }
-
-            BodyQueue bodiesCopy = new BodyQueue(bodies);
+            bodiesCopy = new BodyQueue(bodies);
 
             // for each body (with index i): compute its total acceleration.
             for (int i = 0; i < bodies.size(); i++)

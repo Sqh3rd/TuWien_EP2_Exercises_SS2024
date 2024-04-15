@@ -55,4 +55,12 @@ public class BodyQueue {
 
         return list.size();
     }
+
+    public void remove(Body entry)
+    {
+        for(int i = 0; i < size(); i++) {
+            Body candidate = poll();
+            if (candidate != entry) add(candidate);
+        }
+    }
 }
