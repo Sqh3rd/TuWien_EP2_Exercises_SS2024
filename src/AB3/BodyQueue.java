@@ -1,7 +1,5 @@
 package AB3;
 
-import AB2.Body;
-
 /**
  * A queue of bodies. A collection designed for holding bodies prior to processing.
  * The bodies of the queue can be accessed in a FIFO (first-in-first-out) manner,

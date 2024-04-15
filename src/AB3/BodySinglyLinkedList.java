@@ -1,6 +1,6 @@
 package AB3;
 
-import AB2.Body;
+import AB3.Collections.List.Linked.SinglyLinkedList;
 
 /**
  * A list of bodies implemented as a singly linked list. The number of elements of the list is
@@ -10,7 +10,8 @@ import AB2.Body;
 // TODO: define further classes and methods for the implementation of the singly linked list, if
 //  needed.
 //
-public class BodySinglyLinkedList {
+public class BodySinglyLinkedList extends SinglyLinkedList<Body>
+{
 
     //TODO: declare variables.
 
@@ -18,8 +19,7 @@ public class BodySinglyLinkedList {
      * Initializes 'this' as an empty list.
      */
     public BodySinglyLinkedList() {
-
-        // TODO: implement constructor.
+        super();
     }
 
     /**
@@ -30,8 +30,7 @@ public class BodySinglyLinkedList {
      * @param list the list from which elements are copied to the new list, list != null.
      */
     public BodySinglyLinkedList(BodySinglyLinkedList list) {
-
-        // TODO: implement constructor.
+        super(list);
     }
 
     /**
@@ -40,8 +39,7 @@ public class BodySinglyLinkedList {
      * @param b the body that is added (b can also be 'null').
      */
     public void addFirst(Body b) {
-
-        // TODO: implement method.
+        super.insert(0, b);
     }
 
     /**
@@ -50,8 +48,7 @@ public class BodySinglyLinkedList {
      * @param b the body that is added (b can also be 'null').
      */
     public void addLast(Body b) {
-
-        // TODO: implement method.
+        super.push(b);
     }
 
     /**
@@ -59,9 +56,7 @@ public class BodySinglyLinkedList {
      * Returns 'null' if the list is empty.
      */
     public Body getLast() {
-
-        // TODO: implement method.
-        return null;
+        return super.get(size() - 1);
     }
 
     /**
@@ -69,9 +64,7 @@ public class BodySinglyLinkedList {
      * Returns 'null' if the list is empty.
      */
     public Body getFirst() {
-
-        // TODO: implement method.
-        return null;
+        return super.get(0);
     }
 
     /**
@@ -82,9 +75,7 @@ public class BodySinglyLinkedList {
      * @return the first element in this list, or 'null' if the list is empty.
      */
     public Body pollFirst() {
-
-        // TODO: implement method.
-        return null;
+        return super.remove(0);
     }
 
     /**
@@ -94,9 +85,7 @@ public class BodySinglyLinkedList {
      * @return the last element in this list, or 'null' if the list is empty.
      */
     public Body pollLast() {
-
-        // TODO: implement method.
-        return null;
+        return super.pop();
     }
 
     /**
@@ -108,8 +97,7 @@ public class BodySinglyLinkedList {
      * @param b the body that is added (b can also be 'null').
      */
     public void add(int i, Body b) {
-
-        // TODO: implement method.
+        super.insert(i, b);
     }
 
     /**
@@ -120,9 +108,7 @@ public class BodySinglyLinkedList {
      * @return the retrieved element at the specified position.
      */
     public Body get(int i) {
-
-        // TODO: implement method.
-        return null;
+        return super.get(i);
     }
 
     /**
@@ -135,18 +121,14 @@ public class BodySinglyLinkedList {
      * or -1 if this list does not contain the element.
      */
     public int indexOf(Body b) {
-
-        // TODO: implement method.
-        return -2;
+        return super.indexOf(b);
     }
 
     /**
      * Returns the number of entries in this list (including 'null' entries).
      */
     public int size() {
-
-        // TODO: implement method.
-        return -1;
+        return super.size();
     }
 }
 

@@ -1,7 +1,6 @@
 package AB3;
 
-import AB1.Vector3;
-import AB2.Body;
+import AB3.Collections.Map.TreeMap;
 
 /**
  * This data structure maps bodies to vectors ('Vector3' objects). It is implemented
@@ -13,10 +12,11 @@ import AB2.Body;
 // TODO: define further classes and methods for the implementation of the binary search tree, if
 //  needed.
 //
-public class BodyAccelerationTreeMap {
-
-    //TODO: declare variables.
-
+public class BodyAccelerationTreeMap extends TreeMap<Body, Vector3>
+{
+    BodyAccelerationTreeMap() {
+        super(Body::compareByMass);
+    }
 
     /**
      * Adds a new key-value association to this map. If the key already exists in this map,
@@ -26,9 +26,7 @@ public class BodyAccelerationTreeMap {
      * @return the old value if the key already existed in this map, or 'null' otherwise.
      */
     public Vector3 put(Body key, Vector3 value) {
-
-        // TODO: implement method.
-        return null;
+        return super.put(key, value);
     }
 
     /**
@@ -39,9 +37,7 @@ public class BodyAccelerationTreeMap {
      * this map).
      */
     public Vector3 get(Body key) {
-
-        // TODO: implement method.
-        return null;
+        return super.get(key);
     }
 
     /**
@@ -50,9 +46,7 @@ public class BodyAccelerationTreeMap {
      * @return 'true' if this map contains a mapping for the specified key, or 'false' otherwise.
      */
     public boolean containsKey(Body key) {
-
-        // TODO: implement method.
-        return false;
+        return super.containsKey(key);
     }
 
     /**
@@ -60,9 +54,7 @@ public class BodyAccelerationTreeMap {
      *  descending order according to the mass of the bodies.
      */
     public String toString() {
-
-        // TODO: implement method.
-        return "";
+        return super.toString();
     }
 }
 

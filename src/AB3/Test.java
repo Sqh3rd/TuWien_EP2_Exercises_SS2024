@@ -1,8 +1,5 @@
 package AB3;
 
-import AB1.Vector3;
-import AB2.Body;
-
 /**
  * A class used for testing.
  */
@@ -15,8 +12,6 @@ public class Test {
     public static void main(String[] args) {
 
         //test classes BodySinglyLinkedList and BodyAccelerationTreeMap
-
-        /* TODO: remove this line
 
         // create five bodies
         Body sun = new Body(1.989e30, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
@@ -98,8 +93,6 @@ public class Test {
         testValue(map.put(earth, new Vector3(0, 0, 0)).distanceTo(earth.acceleration(sun)), 0);
         testValue(map.get(earth).distanceTo(new Vector3(0, 0, 0)), 0);
         testValue(map.get(mercury).distanceTo(mercury.acceleration(sun)), 0);
-
-        // TODO: remove this line */
 
     }
 
