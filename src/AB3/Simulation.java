@@ -61,6 +61,8 @@ public class Simulation
         {
             seconds++; // each iteration computes the movement of the celestial bodies within one second.
 
+            // List used here since if I were to use a Queue for this operation and a work colleague would see that
+            // I'd probably get an appointment with a therapist
             UnsortedList<Body> bodyList = UnsortedList.<Body>builder()
                 .withInitialArray(new Body[NUMBER_OF_BODIES])
                 .build();
