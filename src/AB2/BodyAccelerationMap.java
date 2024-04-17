@@ -1,6 +1,7 @@
 package AB2;
 
 import AB1.Vector3;
+import AB2.Collections.Map.KeyValuePair;
 import AB2.Collections.Map.SortedMap;
 
 /**
@@ -44,5 +45,16 @@ public class BodyAccelerationMap extends SortedMap<Body, Vector3>
     public Vector3 get(Body key)
     {
         return super.get(key);
+    }
+
+    public void removeBelow(double threshold){
+
+        int temp = list.binarySearch(new KeyValuePair<>(new Body(threshold,new Vector3(0,0,0), new Vector3(0,0,0)),null),false);
+        while (list.count()>temp){list.pop();
+
+        }
+
+
+
     }
 }

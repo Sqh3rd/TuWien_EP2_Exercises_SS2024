@@ -62,6 +62,8 @@ public class Test {
         testValue(bam.get(earth).distanceTo(new Vector3(0,0,0)), 0);
         testIdentity(bam.get(mercury),null);
 
+        bam.removeBelow(earth.getMass());
+        testIdentity(bam.get(earth), null);
     }
 
     /**

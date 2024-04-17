@@ -6,7 +6,7 @@ import AB2.Collections.List.SortedList;
 
 public class SortedMap<Key, Value>
 {
-    private final SortedList<KeyValuePair<Key, Value>> list;
+    protected final SortedList<KeyValuePair<Key, Value>> list;
     private final Comparator<Key> comparator;
 
     protected SortedMap(int initialCapacity, Comparator<Key> comparator)

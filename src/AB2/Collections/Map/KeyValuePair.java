@@ -5,7 +5,7 @@ public class KeyValuePair<Key, Value>
     private final Key key;
     private Value value;
 
-    KeyValuePair(Key key, Value value)
+    public KeyValuePair(Key key, Value value)
     {
         this.key = key;
         this.value = value;
