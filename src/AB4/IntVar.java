@@ -34,4 +34,8 @@ public class IntVar {
 
         return name;
     }
+
+    public static int compareByName(IntVar v1, IntVar v2) {
+        return v1.name.compareTo(v2.name);
+    }
 }

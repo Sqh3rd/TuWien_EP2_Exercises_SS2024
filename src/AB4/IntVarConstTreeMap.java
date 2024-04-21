@@ -1,5 +1,7 @@
 package AB4;
 
+import Collections.Map.TreeMap;
+
 /**
  * This data structure maps variables ('IntVar' objects) to constants ('IntConst' objects).
  * It is implemented as a binary search tree where variables are sorted lexicographically according
@@ -11,13 +13,10 @@ package AB4;
 // TODO: define further classes and methods for the implementation of the binary search tree, if
 //  needed.
 //
-public class IntVarConstTreeMap {
-
-    //TODO: declare variables.
-
+public class IntVarConstTreeMap extends TreeMap<IntVar, IntConst>
+{
     public IntVarConstTreeMap() {
-
-        //TODO: implement constructor.
+        super(IntVar::compareByName);
     }
 
     /**
@@ -26,8 +25,7 @@ public class IntVarConstTreeMap {
      * @param map the map from which key-value mappings are copied to this new map, map != null.
      */
     public IntVarConstTreeMap(IntVarConstTreeMap map) {
-
-        //TODO: implement constructor.
+        super(map);
     }
 
     /**
@@ -38,10 +36,12 @@ public class IntVarConstTreeMap {
      * @param toCopy the list of keys specifying which key-value mappings to copy, toCopy != null.
      */
     public IntVarConstTreeMap(IntVarConstTreeMap map, IntVarDoublyLinkedList toCopy) {
-
-        //TODO: implement constructor.
+        this();
+        toCopy.forEach(it -> {
+            IntConst value = map.get(it);
+            if (value != null) put(it, value);
+        });
     }
-
 
     /**
      * Adds a new key-value association to this map. If the key already exists in this map,
@@ -51,9 +51,7 @@ public class IntVarConstTreeMap {
      * @return the old value if the key already existed in this map, or 'null' otherwise.
      */
     public IntConst put(IntVar key, IntConst value) {
-
-        //TODO: implement method.
-        return null;
+        return super.put(key, value);
     }
 
     /**
@@ -64,9 +62,7 @@ public class IntVarConstTreeMap {
      * this map).
      */
     public IntConst get(IntVar key) {
-
-        //TODO: implement method.
-        return null;
+        return super.get(key);
     }
 
     /**
@@ -75,9 +71,7 @@ public class IntVarConstTreeMap {
      * @return 'true' if this map contains a mapping for the specified key, or 'false' otherwise.
      */
     public boolean containsKey(IntVar key) {
-
-        //TODO: implement method.
-        return false;
+        return super.containsKey(key);
     }
 
     /**
@@ -85,9 +79,7 @@ public class IntVarConstTreeMap {
      * @return the number of key-value mappings in this map.
      */
     public int size() {
-
-        //TODO: implement method.
-        return -1;
+        return super.getSize();
     }
 
     /**
@@ -99,10 +91,6 @@ public class IntVarConstTreeMap {
      * @return an ordered list of keys.
      */
     public IntVarDoublyLinkedList keyList() {
-
-        //TODO: implement method.
-        return null;
+        return (IntVarDoublyLinkedList) super.getKeys();
     }
 }
-
-// TODO: define further classes, if needed (either here or in a separate file).

@@ -1,23 +1,18 @@
 package AB4;
 
+import Collections.List.Linked.DoublyLinkedList;
+
 /**
- * A list of 'IntVar' objects implemented as a doubly linked list. The number of elements of the 
+ * A list of 'IntVar' objects implemented as a doubly linked list. The number of elements of the
  * list is not limited. The list may also contain entries of 'null'.
  */
-//
-// TODO: define further classes and methods for the implementation of the doubly linked list, if
-//  needed.
-//
-public class IntVarDoublyLinkedList {
-
-    //TODO: declare variables.
-
+public class IntVarDoublyLinkedList extends DoublyLinkedList<IntVar>
+{
     /**
      * Initializes 'this' as an empty list.
      */
     public IntVarDoublyLinkedList() {
-
-        //TODO: implement constructor.
+        super();
     }
 
     /**
@@ -25,8 +20,7 @@ public class IntVarDoublyLinkedList {
      * @param v the variable that is added ('v' can also be 'null').
      */
     public void addFirst(IntVar v) {
-
-        //TODO: implement method.
+        super.insert(0, v);
     }
 
     /**
@@ -34,8 +28,7 @@ public class IntVarDoublyLinkedList {
      * @param v the variable that is added ('v' can also be 'null').
      */
     public void addLast(IntVar v) {
-
-        //TODO: implement method.
+        super.push(v);
     }
 
     /**
@@ -43,9 +36,7 @@ public class IntVarDoublyLinkedList {
      * Returns 'null' if the list is empty.
      */
     public IntVar getLast() {
-
-        //TODO: implement method.
-        return null;
+        return super.get(super.size() - 1);
     }
 
     /**
@@ -53,9 +44,7 @@ public class IntVarDoublyLinkedList {
      * Returns 'null' if the list is empty.
      */
     public IntVar getFirst() {
-
-        //TODO: implement method.
-        return null;
+        return super.get(0);
     }
 
     /**
@@ -66,9 +55,7 @@ public class IntVarDoublyLinkedList {
      * @return the first element in this list, or 'null' if the list is empty.
      */
     public IntVar pollFirst() {
-
-        //TODO: implement method.
-        return null;
+        return super.remove(0);
     }
 
     /**
@@ -77,9 +64,7 @@ public class IntVarDoublyLinkedList {
      * @return the last element in this list, or 'null' if the list is empty.
      */
     public IntVar pollLast() {
-
-        //TODO: implement method.
-        return null;
+        return super.pop();
     }
 
 
@@ -91,8 +76,7 @@ public class IntVarDoublyLinkedList {
      * @param v the body that is added ('v' can also be 'null').
      */
     public void add(int i, IntVar v) {
-
-        //TODO: implement method.
+        super.insert(i, v);
     }
 
     /**
@@ -102,9 +86,7 @@ public class IntVarDoublyLinkedList {
      * @return the retrieved element at the specified position.
      */
     public IntVar get(int i) {
-
-        //TODO: implement method.
-        return null;
+        return super.get(i);
     }
 
     /**
@@ -114,9 +96,7 @@ public class IntVarDoublyLinkedList {
      * @return the element that was replaced.
      */
     public IntVar set(int i, IntVar v) {
-
-        //TODO: implement method.
-        return null;
+        return super.replace(i, v);
     }
 
     /**
@@ -127,9 +107,7 @@ public class IntVarDoublyLinkedList {
      * @return the removed element.
      */
     public IntVar remove(int i) {
-
-        //TODO: implement method.
-        return null;
+        return super.remove(i);
     }
 
     /**
@@ -141,9 +119,7 @@ public class IntVarDoublyLinkedList {
      * or -1 if this list does not contain the element.
      */
     public int lastIndexOf(IntVar v) {
-
-        //TODO: implement method.
-        return -2;
+        return super.lastIndexOf(v);
     }
 
     /**
@@ -151,10 +127,6 @@ public class IntVarDoublyLinkedList {
      * @return the number of entries in this list (including 'null' entries).
      */
     public int size() {
-
-        //TODO: implement method.
-        return -1;
+        return super.size();
     }
 }
-
-// TODO: define further classes, if needed (either here or in a separate file).
