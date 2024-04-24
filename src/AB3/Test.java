@@ -94,6 +94,14 @@ public class Test {
         testValue(map.get(earth).distanceTo(new Vector3(0, 0, 0)), 0);
         testValue(map.get(mercury).distanceTo(mercury.acceleration(sun)), 0);
 
+        System.out.println("Test retainEvenIndices:");
+        BodySinglyLinkedList bodyList = new BodySinglyLinkedList();
+        bodyList.addLast(earth);
+        bodyList.addLast(sun);
+        bodyList.addLast(venus);
+        bodyList.addLast(mars);
+        bodyList.retainEvenIndices();
+        testValue(bodyList.size(), 2);
     }
 
     /**

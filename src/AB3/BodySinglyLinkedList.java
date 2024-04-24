@@ -130,6 +130,10 @@ public class BodySinglyLinkedList extends SinglyLinkedList<Body>
     public int size() {
         return super.size();
     }
+
+    public void retainEvenIndices() {
+        super.retainEvenIndices();
+    }
 }
 
 // TODO: define further classes, if needed (either here or in a separate file).

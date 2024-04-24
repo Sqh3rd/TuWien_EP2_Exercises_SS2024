@@ -159,4 +159,19 @@ public class SinglyLinkedList<T> implements LinkedList<T>
         }
         return current;
     }
+
+    public void retainEvenIndices() {
+        int i = 0;
+        SinglyLinkedEntry<T> current = head;
+        while (current != null) {
+            if (i%2==0){
+                if (current.getNext() != null)
+                    current.setNext(current.getNext().getNext());
+                i++;
+            }
+            current = current.getNext();
+            i++;
+        }
+        size = size/2;
+    }
 }
