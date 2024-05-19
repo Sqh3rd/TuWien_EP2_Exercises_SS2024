@@ -61,4 +61,9 @@ public interface IntVarConstMap {
      * @return a new 'IntVarQueue' object containing all the keys of this map.
      */
     IntVarQueue keyQueue();
+
+    /**
+     * Returns a new, mutable Instance of 'IntVarConstMap'
+     */
+    IntVarConstMap clone();
 }

@@ -118,12 +118,12 @@ public class ArrayUtils
     public static class Sort
     {
         /**
-         * Clones the given array, sorts the copy and then returns the sorted copy
+         * Clones the given array, sorts the clone and then returns the sorted clone
          *
          * @param array      the array to sort
          * @param comparator a comparator to compare the transformed values
          * @param <T>        the type of the array entries
-         * @return a sorted copy of the original array
+         * @return a sorted clone of the original array
          */
         public static <T> T[] quicksort(T[] array, Comparator<T> comparator)
         {

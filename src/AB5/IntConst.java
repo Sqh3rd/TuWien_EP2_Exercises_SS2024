@@ -32,9 +32,7 @@ public class IntConst implements LinearExpression {
 
     @Override
     public LinearExpression plus(IntVarTerm t) {
-
-        //TODO: implement method.
-        return null; // return new SumOfTerms(t, this);
+        return new SumOfTerms(t, this);
     }
 
     @Override

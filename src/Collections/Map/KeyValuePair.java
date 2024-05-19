@@ -1,11 +1,13 @@
 package Collections.Map;
 
-public class KeyValuePair<Key, Value>
+import misc.Clone;
+
+public class KeyValuePair<Key, Value> implements Clone
 {
     private final Key key;
     private Value value;
 
-    KeyValuePair(Key key, Value value)
+    public KeyValuePair(Key key, Value value)
     {
         this.key = key;
         this.value = value;
@@ -24,5 +26,10 @@ public class KeyValuePair<Key, Value>
     public void setValue(Value value)
     {
         this.value = value;
+    }
+
+    @Override
+    public KeyValuePair<Key, Value> clone() {
+        return new KeyValuePair<>(key, value);
     }
 }

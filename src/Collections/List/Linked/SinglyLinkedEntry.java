@@ -1,5 +1,7 @@
 package Collections.List.Linked;
 
+import misc.Clone;
+
 public class SinglyLinkedEntry<T> implements LinkedEntry<T>
 {
     private T value;
@@ -34,6 +36,8 @@ public class SinglyLinkedEntry<T> implements LinkedEntry<T>
 
     public SinglyLinkedEntry<T> clone()
     {
-        return new SinglyLinkedEntry<>(value, next == null ? null : next.clone());
+        return new SinglyLinkedEntry<>(value instanceof Clone ? (T)((Clone)value).clone() : value,
+            next == null ? null :
+            next.clone());
     }
 }

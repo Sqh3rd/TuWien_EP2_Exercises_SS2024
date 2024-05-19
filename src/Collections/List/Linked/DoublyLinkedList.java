@@ -1,9 +1,9 @@
 package Collections.List.Linked;
 
-import java.util.function.Consumer;
-
 import Collections.Iterable;
 import Collections.List.LinkedList;
+
+import java.util.function.Consumer;
 
 public class DoublyLinkedList<T> implements LinkedList<T>, Iterable<T>
 {
@@ -215,6 +215,11 @@ public class DoublyLinkedList<T> implements LinkedList<T>, Iterable<T>
         T old = entry.getValue();
         entry.setValue(value);
         return old;
+    }
+
+    @Override
+    public LinkedEntryIterator<T> iterator() {
+        return new LinkedEntryIterator<>(head);
     }
 
     @Override

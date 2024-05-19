@@ -4,7 +4,7 @@ import Collections.Iterator;
 
 public class LinkedEntryIterator<T> implements Iterator<T>
 {
-    LinkedEntry<T> current;
+    private LinkedEntry<T> current;
 
     LinkedEntryIterator(LinkedEntry<T> current) {
         this.current = current;
@@ -20,6 +20,6 @@ public class LinkedEntryIterator<T> implements Iterator<T>
     @Override
     public boolean hasNext()
     {
-        return current.getNext() != null;
+        return current != null;
     }
 }

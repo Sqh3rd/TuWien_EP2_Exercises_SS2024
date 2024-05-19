@@ -14,8 +14,8 @@ public class SinglyLinkedList<T> implements LinkedList<T>
 
     public SinglyLinkedList(SinglyLinkedList<T> other) {
         this.size = other.size;
-        this.head = other.head.clone();
-        this.tail = getLast();
+        this.head = other.head == null ? null : other.head.clone();
+        this.tail = other.head == null ? null : getLast();
     }
 
     @Override
@@ -176,6 +176,15 @@ public class SinglyLinkedList<T> implements LinkedList<T>
             current = current.getNext();
         }
         return lastIndex;
+    }
+
+    @Override
+    public LinkedEntryIterator<T> iterator() {
+        return new LinkedEntryIterator<>(head);
+    }
+
+    public SinglyLinkedList<T> clone() {
+        return new SinglyLinkedList<>(this);
     }
 
     private SinglyLinkedEntry<T> getLast()
