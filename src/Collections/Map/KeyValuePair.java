@@ -1,8 +1,8 @@
 package Collections.Map;
 
-import misc.Clone;
+import misc.Copy;
 
-public class KeyValuePair<Key, Value> implements Clone
+public class KeyValuePair<Key, Value> implements Copy<KeyValuePair<Key, Value>>
 {
     private final Key key;
     private Value value;
@@ -29,7 +29,12 @@ public class KeyValuePair<Key, Value> implements Clone
     }
 
     @Override
-    public KeyValuePair<Key, Value> clone() {
+    public KeyValuePair<Key, Value> copy() {
         return new KeyValuePair<>(key, value);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{ %s: %s }", key.toString(), value.toString());
     }
 }

@@ -13,8 +13,7 @@ public interface Condition {
      * @return a new condition representing the boolean combination 'this' AND 'c'.
      */
     default Condition and(Condition c) {
-
-        return null; //return new AND(this, c); //TODO: exchange this line.
+        return new AND(this, c);
     }
 
     /**
@@ -24,7 +23,7 @@ public interface Condition {
      */
     default Condition or(Condition c) {
 
-        return null; // return new OR(this, c); //TODO: exchange this line.
+        return new OR(this, c);
     }
 
     /**
@@ -33,7 +32,7 @@ public interface Condition {
      */
     default Condition not() {
 
-        return null; // return new NOT(this); //TODO: exchange this line.
+        return new NOT(this);
     }
 
     /**

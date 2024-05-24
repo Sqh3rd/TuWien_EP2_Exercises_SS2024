@@ -1,15 +1,28 @@
 package Collections.List.Linked;
 
-import Collections.Iterable;
 import Collections.List.LinkedList;
+import Collections.Queue.Queue;
+import Collections.Queue.QueueIterator;
 
+import java.util.Iterator;
 import java.util.function.Consumer;
 
-public class DoublyLinkedList<T> implements LinkedList<T>, Iterable<T>
+public class DoublyLinkedList<T> implements LinkedList<T>
 {
     private DoublyLinkedEntry<T> head;
     private DoublyLinkedEntry<T> tail;
     private int size;
+
+    protected DoublyLinkedList() {}
+
+    DoublyLinkedList(DoublyLinkedList<T> list) {
+        size = list.size;
+        head = list.head.copy();
+        DoublyLinkedEntry<T> current = head;
+        while (current.getNext() != null)
+            current = current.getNext();
+        tail = current;
+    }
 
     @Override
     public void insert(int index, T element)
@@ -186,7 +199,7 @@ public class DoublyLinkedList<T> implements LinkedList<T>, Iterable<T>
         return indexOf(element) != -1;
     }
 
-    protected LinkedEntry<T> getEntry(int index) {
+    protected DoublyLinkedEntry<T> getEntry(int index) {
         if (index <= size / 2)
         {
             DoublyLinkedEntry<T> current = head;
@@ -211,23 +224,55 @@ public class DoublyLinkedList<T> implements LinkedList<T>, Iterable<T>
 
     @Override
     public T replace(int index, T value) {
-        LinkedEntry<T> entry = getEntry(index);
+        DoublyLinkedEntry<T> entry = getEntry(index);
         T old = entry.getValue();
         entry.setValue(value);
         return old;
     }
 
-    @Override
-    public LinkedEntryIterator<T> iterator() {
-        return new LinkedEntryIterator<>(head);
+    private T[] toArray() {
+        T[] result = (T[])new Object[size];
+        DoublyLinkedEntry<T> current = head;
+        for (int i = 0; i < size; i++) {
+            result[i] = current.getValue();
+            current = current.getNext();
+        }
+        return result;
     }
 
     @Override
-    public void forEach(Consumer<T> consumer) {
+    public Iterator<T> iterator() {
+        return new QueueIterator<>(Queue.of(this));
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> consumer) {
         DoublyLinkedEntry<T> current = head;
         while (current != null) {
             consumer.accept(current.getValue());
             current = current.getNext();
         }
+    }
+
+    @Override
+    public DoublyLinkedList<T> copy() {
+        return new DoublyLinkedList<>(this);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (T t : this) {
+            if (!sb.isEmpty()) sb.append(", ");
+            sb.append(t.toString());
+        }
+        return sb.toString();
+    }
+
+    public static <T> DoublyLinkedList<T> of(T ...arr) {
+        DoublyLinkedList<T> result = new DoublyLinkedList<>();
+        for (T t : arr)
+            result.push(t);
+        return result;
     }
 }

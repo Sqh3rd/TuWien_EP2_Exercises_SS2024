@@ -99,4 +99,5 @@ public interface LinearExpression extends IntVarIterable {
      */
     int hashCode();
 
+    IntVarSet varSet();
 }

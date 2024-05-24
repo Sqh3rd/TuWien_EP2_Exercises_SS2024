@@ -10,7 +10,6 @@ public interface IntVarTerm extends LinearExpression {
     IntVar getVar();
     IntConst getCoeff();
 
-    /* TODO: uncomment this block
     default LinearExpression plus(IntVarTerm t) {
 
             if (t.getVar().equals(this.getVar())) {
@@ -33,6 +32,4 @@ public interface IntVarTerm extends LinearExpression {
         }
         return new SumOfTerms(this, c);
     }
-
-    //TODO: end of block to uncomment */
 }

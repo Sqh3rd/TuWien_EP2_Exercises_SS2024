@@ -1,10 +1,14 @@
 package Collections.List.Standard;
 
-import java.util.Objects;
-
 import Collections.List.List;
 import Collections.List.Scaling;
+import Collections.Queue.Queue;
+import Collections.Queue.QueueIterator;
 import Collections.Utils.ArrayUtils;
+
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 abstract class ProtoList<T> implements List<T>
 {
@@ -116,6 +120,16 @@ abstract class ProtoList<T> implements List<T>
         if (index < 0)
             convertedIndex += internalArray.length;
         return convertedIndex;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new QueueIterator<>(Queue.of(internalArray));
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        for (var element : internalArray) action.accept(element);
     }
 
     public static abstract class ProtoListBuilder<T, B extends ProtoListBuilder<T, B>>

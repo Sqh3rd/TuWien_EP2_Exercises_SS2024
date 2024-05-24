@@ -1,15 +1,13 @@
 package AB6;
 
+import Collections.Set.HashSet;
+
 /**
  * This class represents an ALL DIFFERENT condition.
  */
-//
-// TODO: define further classes and methods, if needed.
-//
-public class AllDifferent // implements Condition //TODO: uncomment clause.
+public class AllDifferent implements Condition
 {
-
-    //TODO: define missing parts of this class.
+    private final IntVarSet set;
 
     /**
      * Initializes this 'AllDifferent' constraint object.
@@ -18,8 +16,7 @@ public class AllDifferent // implements Condition //TODO: uncomment clause.
      *            across them. This set defines the scope of the constraint.
      */
     public AllDifferent(IntVarSet set) {
-
-        //TODO: implement constructor.
+        this.set = set;
     }
 
     /**
@@ -36,9 +33,18 @@ public class AllDifferent // implements Condition //TODO: uncomment clause.
      *                    may or may not fully cover all variables in the problem.
      * @return true, if all considered variables have unique values, false otherwise.
      */
-    boolean getValue(IntVarConstMap assignments) {
+    public boolean getValue(IntVarConstMap assignments) {
+        HashSet<IntConst> assignmentSet = new HashSet<>();
+        for (IntVar key : set) {
+            IntConst val = assignments.get(key);
+            if (assignmentSet.contains(val)) return false;
+            assignmentSet.add(val);
+        }
+        return true;
+    }
 
-        //TODO: implement method.
-        return false;
+    @Override
+    public IntVarSet getVarSet() {
+        return set;
     }
 }

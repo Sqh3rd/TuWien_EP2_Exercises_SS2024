@@ -5,12 +5,10 @@ package AB6;
  * two expressions are equal when their variables are assigned to specific values
  * (using the same variable assignments in both expressions).
  */
-//
-// TODO: define further classes and methods, if needed.
-//
-public class IsEqual //implements Condition //TODO: uncomment clause.
+public class IsEqual implements Condition
 {
-    //TODO: define missing parts of this class.
+    private final LinearExpression e1;
+    private final LinearExpression e2;
 
     /**
      * Initializes 'this' with two linear expressions.
@@ -18,8 +16,13 @@ public class IsEqual //implements Condition //TODO: uncomment clause.
      * @param e2 the second expression, e2 != null.
      */
     public IsEqual(LinearExpression e1, LinearExpression e2) {
+        this.e1 = e1;
+        this.e2 = e2;
+    }
 
-        //TODO: implement constructor.
+    @Override
+    public IntVarSet getVarSet() {
+        return new IntVarHashSet(e1.iterator(), e2.iterator());
     }
 
     /**
@@ -27,9 +30,7 @@ public class IsEqual //implements Condition //TODO: uncomment clause.
      * @param assignments the map with variable assignments, assignments != null.
      * @return e1.assignValue(assignments).equals(e2.assignValue(assignments)).
      */
-    boolean getValue(IntVarConstMap assignments) {
-
-        //TODO: implement method.
-        return false;
+    public boolean getValue(IntVarConstMap assignments) {
+        return e1.assignValue(assignments).equals(e2.assignValue(assignments));
     }
 }

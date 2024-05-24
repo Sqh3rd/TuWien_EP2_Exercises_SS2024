@@ -1,8 +1,9 @@
 package Collections.List.Linked;
 
-public interface LinkedEntry<T>
+public interface LinkedEntry<T, E extends LinkedEntry<T, E>>
 {
     T getValue();
     void setValue(T value);
-    LinkedEntry<T> getNext();
+    E getNext();
+    E copy();
 }

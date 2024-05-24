@@ -2,11 +2,11 @@ package Collections.List.Linked;
 
 import Collections.Iterator;
 
-public class LinkedEntryIterator<T> implements Iterator<T>
+public class LinkedEntryIterator<T, E extends LinkedEntry<T, E>> implements Iterator<T>
 {
-    private LinkedEntry<T> current;
+    private LinkedEntry<T, E> current;
 
-    LinkedEntryIterator(LinkedEntry<T> current) {
+    LinkedEntryIterator(LinkedEntry<T, E> current) {
         this.current = current;
     }
 

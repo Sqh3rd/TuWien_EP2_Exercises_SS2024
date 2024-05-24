@@ -144,6 +144,11 @@ public class IntConst implements LinearExpression {
 
         return Objects.hash(value);
     }
+
+    @Override
+    public IntVarSet varSet() {
+        return new IntVarHashSet();
+    }
 }
 
 /**

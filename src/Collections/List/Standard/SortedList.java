@@ -1,8 +1,8 @@
 package Collections.List.Standard;
 
-import java.util.Comparator;
-
 import Collections.Utils.ArrayUtils;
+
+import java.util.Comparator;
 
 public class SortedList<T> extends ProtoList<T>
 {

@@ -1,6 +1,11 @@
 package Collections.List.Linked;
 
 import Collections.List.LinkedList;
+import Collections.Queue.Queue;
+import Collections.Queue.QueueIterator;
+
+import java.util.Iterator;
+import java.util.function.Consumer;
 
 public class SinglyLinkedList<T> implements LinkedList<T>
 {
@@ -14,7 +19,7 @@ public class SinglyLinkedList<T> implements LinkedList<T>
 
     public SinglyLinkedList(SinglyLinkedList<T> other) {
         this.size = other.size;
-        this.head = other.head == null ? null : other.head.clone();
+        this.head = other.head == null ? null : other.head.copy();
         this.tail = other.head == null ? null : getLast();
     }
 
@@ -178,13 +183,44 @@ public class SinglyLinkedList<T> implements LinkedList<T>
         return lastIndex;
     }
 
-    @Override
-    public LinkedEntryIterator<T> iterator() {
-        return new LinkedEntryIterator<>(head);
+    private T[] toArray() {
+        T[] arr = (T[])new Object[size];
+        LinkedEntry<T, SinglyLinkedEntry<T>> current = head;
+        for (int i = 0; i < size; i++) {
+            arr[i] = current.getValue();
+            current = current.getNext();
+        }
+        return arr;
     }
 
-    public SinglyLinkedList<T> clone() {
+    @Override
+    public Iterator<T> iterator() {
+        return new QueueIterator<>(Queue.of(this));
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> consumer) {
+        for (var iter = iterator(); iter.hasNext();)
+            consumer.accept(iter.next());
+    }
+
+    public static <T> SinglyLinkedList<T> of(T[] arr) {
+        SinglyLinkedList<T> result = new SinglyLinkedList<>();
+        for (T t : arr)
+            result.push(t);
+        return result;
+    }
+
+    public SinglyLinkedList<T> copy() {
         return new SinglyLinkedList<>(this);
+    }
+
+    public SinglyLinkedList<T> deepCopy() {
+        SinglyLinkedList<T> result = new SinglyLinkedList<>();
+        result.size = size;
+        result.head = head != null ? head.deepCopy() : null;
+        result.tail = tail != null ? result.getLast() : null;
+        return result;
     }
 
     private SinglyLinkedEntry<T> getLast()
@@ -194,5 +230,15 @@ public class SinglyLinkedList<T> implements LinkedList<T>
             current = current.getNext();
         }
         return current;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (T t : this) {
+            if (!sb.isEmpty()) sb.append(", ");
+            sb.append(t.toString());
+        }
+        return sb.toString();
     }
 }

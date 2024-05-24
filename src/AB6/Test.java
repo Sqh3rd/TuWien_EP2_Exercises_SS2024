@@ -2,6 +2,10 @@ package AB6;
 
 import java.util.Arrays;
 
+import static AB6.LinearExpression.ONE;
+import static AB6.LinearExpression.ZERO;
+import static Tests.TestUtils.assertThat;
+
 /**
  * A class used for testing.
  */
@@ -13,7 +17,6 @@ public class Test {
      */
     public static void main(String[] args) {
 
-        /* TODO: uncomment block.
         System.out.println("Test1:");
         IntVar x = new IntVar("x");
         IntVar y = new IntVar("y");
@@ -94,10 +97,48 @@ public class Test {
         System.out.println("\nTest6:");
         testEquals(e.assignValue(values).toString().replaceAll("\\s",""), "20");
 
-        // TODO: end of block to uncomment */
-
         // TODO: add suitable tests for classes implementing 'Condition'.
+        System.out.println("\nTest7:");
+        ConstVarProduct someYs = new ConstVarProduct(new IntConst(5), y);
+        ConstVarProduct someXs = new ConstVarProduct(new IntConst(10), x);
+        LinearExpression linearExpression = someYs.plus(someXs);
+        AllDifferent allDifferent = new AllDifferent(new IntVarHashSet(linearExpression));
 
+        IntVarConstHashMap valueMap = new IntVarConstHashMap();
+        valueMap.put(y, ONE);
+        valueMap.put(z, ONE);
+        valueMap.put(x, ONE);
+
+        assertThat(allDifferent.getValue(valueMap)).isEqualTo(false);
+        assertThat(allDifferent.not().getValue(valueMap)).isEqualTo(true);
+
+        valueMap.put(x, ZERO);
+
+        assertThat(allDifferent.getValue(valueMap)).isEqualTo(true);
+        assertThat(allDifferent.not().getValue(valueMap)).isEqualTo(false);
+
+        assertThat(allDifferent.getVarSet()).isEqualTo(new IntVarHashSet(x, y));
+        assertThat(allDifferent.getVarSet()).isEqualTo(allDifferent.not().getVarSet());
+
+        IsEqual isEqual = new IsEqual(linearExpression, ZERO);
+
+        assertThat(isEqual.getValue(valueMap)).isEqualTo(false);
+
+        valueMap.put(y, ZERO);
+
+        assertThat(isEqual.getValue(valueMap)).isEqualTo(true);
+
+        assertThat(isEqual.getVarSet()).isEqualTo(linearExpression.varSet());
+
+        IsEqual otherIsEqual = new IsEqual(linearExpression, z);
+        IntVarHashSet expected = new IntVarHashSet();
+        expected.add(x);
+        expected.add(y);
+        expected.add(z);
+
+        assertThat(otherIsEqual.getVarSet()).isEqualTo(expected);
+
+        assertThat(isEqual.or(isEqual.not()).getValue(valueMap)).isEqualTo(true);
     }
 
     /**

@@ -1,6 +1,6 @@
 package Collections.List.Linked;
 
-class DoublyLinkedEntry<T> implements LinkedEntry<T>
+public class DoublyLinkedEntry<T> implements LinkedEntry<T, DoublyLinkedEntry<T>>
 {
     private T value;
     private DoublyLinkedEntry<T> next;
@@ -50,5 +50,10 @@ class DoublyLinkedEntry<T> implements LinkedEntry<T>
         this.previous = previous;
         if (previous != null)
             previous.next = this;
+    }
+
+    @Override
+    public DoublyLinkedEntry<T> copy() {
+        return new DoublyLinkedEntry<>(value, next == null ? null : next.copy(), previous == null ? null : previous.copy());
     }
 }

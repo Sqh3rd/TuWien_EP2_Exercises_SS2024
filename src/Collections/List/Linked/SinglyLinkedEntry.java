@@ -1,8 +1,8 @@
 package Collections.List.Linked;
 
-import misc.Clone;
+import misc.Copy;
 
-public class SinglyLinkedEntry<T> implements LinkedEntry<T>
+public class SinglyLinkedEntry<T> implements LinkedEntry<T, SinglyLinkedEntry<T>>, Copy<SinglyLinkedEntry<T>>
 {
     private T value;
     private SinglyLinkedEntry<T> next;
@@ -34,10 +34,14 @@ public class SinglyLinkedEntry<T> implements LinkedEntry<T>
         this.next = singlyLinkedEntry;
     }
 
-    public SinglyLinkedEntry<T> clone()
+    public SinglyLinkedEntry<T> deepCopy()
     {
-        return new SinglyLinkedEntry<>(value instanceof Clone ? (T)((Clone)value).clone() : value,
+        return new SinglyLinkedEntry<>(value instanceof Copy ? (T)((Copy)value).copy() : value,
             next == null ? null :
-            next.clone());
+            next.deepCopy());
+    }
+
+    public SinglyLinkedEntry<T> copy() {
+        return new SinglyLinkedEntry<>(value, next != null ? next.copy() : null);
     }
 }

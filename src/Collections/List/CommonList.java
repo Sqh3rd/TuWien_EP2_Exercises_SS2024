@@ -1,6 +1,6 @@
 package Collections.List;
 
-public interface CommonList<T>
+public interface CommonList<T> extends Iterable<T>
 {
     void push(T element);
     T pop();

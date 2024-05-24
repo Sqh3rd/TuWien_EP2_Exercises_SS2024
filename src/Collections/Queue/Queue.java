@@ -1,52 +1,58 @@
 package Collections.Queue;
 
-import Collections.List.Standard.UnsortedList;
-import Collections.Utils.ArrayUtils;
+import Collections.List.Linked.SinglyLinkedList;
+import Collections.List.LinkedList;
 
-public class Queue<T>
-{
-    private final UnsortedList<T> internalUnsortedList;
-    private int head = 0;
+public class Queue<T> {
+    private LinkedList<T> list;
 
-    public Queue(int initialCapacity)
-    {
-        if (initialCapacity <= 0)
-            throw new IllegalArgumentException("initial capacity needs to be > 0!");
-        internalUnsortedList = UnsortedList.<T>builder()
-            .withInitialArray(ArrayUtils.General.newArray(initialCapacity))
-            .build();
+    public Queue() {
+        list = new SinglyLinkedList<>();
     }
 
-    public Queue(Queue<T> q)
-    {
-        if (q == null)
-            throw new IllegalArgumentException("Body Queue must not be null!");
-        internalUnsortedList = q.internalUnsortedList.toBuilder().build();
-        head = q.head;
+    private Queue(Queue<T> q) {
+        this.list = q.list.copy();
     }
 
-    public void add(T element)
-    {
-        if (internalUnsortedList.count() == internalUnsortedList.size())
-        {
-            internalUnsortedList.lshift(head);
-            head = 0;
-        }
-        internalUnsortedList.push(element);
+    private Queue(LinkedList<T> linkedList) {
+        this.list = linkedList.copy();
     }
 
-    public T poll()
-    {
-        if (head >= internalUnsortedList.count())
-            return null;
-        T element = internalUnsortedList.get(head);
-        internalUnsortedList.replace(null, head);
-        head++;
-        return element;
+    private Queue(T... elements) {
+        list = SinglyLinkedList.of(elements);
     }
 
-    public int size()
-    {
-        return internalUnsortedList.count() - head;
+    public static <T> Queue<T> of(T... elements) {
+        return new Queue<>(elements);
+    }
+
+    public static <T> Queue<T> of(LinkedList<T> linkedList) {
+        return new Queue<>(linkedList);
+    }
+
+    public static <T> Queue<T> of(Queue<T> queue) {
+        return new Queue<>(queue);
+    }
+
+    public static <T> Queue<T> from(LinkedList<T> linkedList) {
+        Queue<T> returnQueue = new Queue<>();
+        returnQueue.list = linkedList;
+        return returnQueue;
+    }
+
+    public void add(T element) {
+        list.push(element);
+    }
+
+    public T poll() {
+        return list.remove(0);
+    }
+
+    public Queue<T> clone() {
+        return new Queue<>(this);
+    }
+
+    public int size() {
+        return list.size();
     }
 }
