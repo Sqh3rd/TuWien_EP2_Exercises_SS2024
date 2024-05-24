@@ -15,33 +15,56 @@ import Collections.Map.KeyValuePair;
 //
 public class IntVarConstHashMap implements IntVarConstMap
 {
-    private final int maxSize = 97;
-    private final SinglyLinkedList<KeyValuePair<IntVar, IntConst>>[] arr;
+    private final int maxCollisionSize = 6;
+    private double currentSize;
+    private SinglyLinkedList<KeyValuePair<IntVar, IntConst>>[] arr;
     private int usedSize = 0;
 
     /**
      * Initializes this map as an empty map.
      */
     public IntVarConstHashMap() {
-        arr = new SinglyLinkedList[maxSize];
+        currentSize = Math.pow(2, 6);
+        arr = new SinglyLinkedList[(int) currentSize];
     }
 
+
     /**
-     * Initializes this map as an independent clone of the specified map. Later changes of 'this'
+     * Initializes this map as an independent copy of the specified map. Later changes of 'this'
      * will not affect 'map' and vice versa.
      */
     public IntVarConstHashMap(IntVarConstHashMap map) {
-        usedSize = map.usedSize;
-        arr = new SinglyLinkedList[maxSize];
-        for (int i = 0; i < maxSize; i++) {
-            if (map.arr[i] == null)
-                continue;
-            arr[i] = map.arr[i].clone();
+        currentSize = map.currentSize;
+        arr = new SinglyLinkedList[(int) currentSize];
+        for (var list : map.arr) {
+            if (list == null) continue;
+            for (var iterator = list.iterator(); iterator.hasNext();) {
+                var entry = iterator.next();
+                put(entry.getKey(), entry.getValue());
+            }
         }
     }
 
+
+    private void rehash() {
+        int oldSize = (int) currentSize;
+        currentSize = Math.min(currentSize *2, Integer.MAX_VALUE);
+        SinglyLinkedList<KeyValuePair<IntVar, IntConst>>[] newArr = new SinglyLinkedList[(int) currentSize];
+        for (int i = 0; i < oldSize; i++) {
+            if (arr[i] == null)
+                continue;
+            for (var iterator = arr[i].iterator(); iterator.hasNext();)
+                put(iterator.next(), newArr);
+        }
+        arr = newArr;
+    }
+
     private int hashKey(IntVar key) {
-        return key.hashCode() % maxSize;
+        return hashKey(key, (int) currentSize);
+    }
+
+    private int hashKey(IntVar key, int size) {
+        return key.hashCode() % size;
     }
 
     @Override
@@ -59,24 +82,30 @@ public class IntVarConstHashMap implements IntVarConstMap
 
     @Override
     public IntConst put(IntVar key, IntConst value) {
-        int pos = hashKey(key);
         usedSize++;
-        if (arr[pos] == null) {
-            arr[pos] = new SinglyLinkedList<>();
-            arr[pos].push(new KeyValuePair<>(key, value));
+        return put(new KeyValuePair<>(key, value), arr);
+    }
+
+    private IntConst put(KeyValuePair<IntVar, IntConst> value,
+                         SinglyLinkedList<KeyValuePair<IntVar, IntConst>>[] array) {
+        int pos = hashKey(value.getKey(), array.length);
+        if (array[pos] == null) {
+            array[pos] = new SinglyLinkedList<>();
+            array[pos].push(value);
             return null;
         }
 
-        for (var iterator = arr[pos].iterator(); iterator.hasNext();) {
+        for (var iterator = array[pos].iterator(); iterator.hasNext();) {
             var next = iterator.next();
-            if (next.getKey() != key)
+            if (next.getKey() != value.getKey())
                 continue;
             IntConst oldValue = next.getValue();
-            next.setValue(value);
+            next.setValue(value.getValue());
             return oldValue;
         }
 
-        arr[pos].push(new KeyValuePair<>(key, value));
+        array[pos].push(value);
+        if (array[pos].size() > maxCollisionSize && currentSize < Integer.MAX_VALUE) rehash();
         return null;
     }
 
