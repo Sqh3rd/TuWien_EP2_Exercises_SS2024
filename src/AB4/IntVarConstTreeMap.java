@@ -9,14 +9,10 @@ import Collections.Map.TreeMap;
  * same name as long as they are not identical. There is no limit on the number of key-value
  * mappings stored in the map.
  */
-//
-// TODO: define further classes and methods for the implementation of the binary search tree, if
-//  needed.
-//
 public class IntVarConstTreeMap extends TreeMap<IntVar, IntConst>
 {
     public IntVarConstTreeMap() {
-        super(IntVar::compareByName);
+        super(IntVar::compareByName, new IntConst(0));
     }
 
     /**

@@ -1,5 +1,7 @@
 package AB6;
 
+import Collections.List.Linked.SinglyLinkedList;
+
 /**
  * This data structure maps variables ('IntVar' objects) to constants ('IntConst' objects).
  * There is no mapping for the key 'null' in the map.
@@ -66,4 +68,6 @@ public interface IntVarConstMap {
      * @return a set view of all the keys of this map.
      */
     IntVarSet keySet();
+
+    SinglyLinkedList<IntVar> keys();
 }

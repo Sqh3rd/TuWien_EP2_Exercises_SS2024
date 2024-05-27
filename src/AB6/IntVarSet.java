@@ -1,11 +1,13 @@
 package AB6;
 
+import Collections.Set.Set;
+
 /**
  * A set of 'IntVar' elements with no duplicates, i.e., the set does not have
  * elements e1 and e2 for which e1.equals(e2) and no 'null' elements. The set has
  * an iterator over its elements.
  */
-public interface IntVarSet extends IntVarIterable {
+public interface IntVarSet extends IntVarIterable, Set<IntVar> {
 
     /**
      * Adds the specified element 'v' to this set. If 'v' is already contained in this set,

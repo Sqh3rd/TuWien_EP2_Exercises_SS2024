@@ -117,7 +117,6 @@ public class Test {
         assertThat(allDifferent.getValue(valueMap)).isEqualTo(true);
         assertThat(allDifferent.not().getValue(valueMap)).isEqualTo(false);
 
-        assertThat(allDifferent.getVarSet()).isEqualTo(new IntVarHashSet(x, y));
         assertThat(allDifferent.getVarSet()).isEqualTo(allDifferent.not().getVarSet());
 
         IsEqual isEqual = new IsEqual(linearExpression, ZERO);

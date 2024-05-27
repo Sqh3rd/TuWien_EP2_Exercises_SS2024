@@ -13,7 +13,7 @@ import java.util.Comparator;
 public class IntVarConstTreeMap extends TreeMap<IntVar, IntConst> implements IntVarConstMap
 {
     public IntVarConstTreeMap() {
-        super(Comparator.comparing(IntVar::getName));
+        super(Comparator.comparing(IntVar::getName), LinearExpression.ZERO);
     }
 
     /**
@@ -26,8 +26,9 @@ public class IntVarConstTreeMap extends TreeMap<IntVar, IntConst> implements Int
         super(map);
     }
 
+    @Override
     public IntVarSet keySet() {
-        return (IntVarSet) super.keysAsSet();
+        return new IntVarKeySet(this);
     }
 }
 

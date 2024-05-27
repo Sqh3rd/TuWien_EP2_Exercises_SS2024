@@ -1,20 +1,24 @@
 package Collections.Map;
 
 import Collections.List.Linked.DoublyLinkedList;
-import Collections.Set.HashSet;
+import Collections.List.Linked.SinglyLinkedList;
+import Collections.List.LinkedList;
+import Collections.Set.KeySet;
 import Collections.Tree.BTNode;
 
 import java.util.Comparator;
 import java.util.Objects;
 
-public class TreeMap<Key, Value>
+public class TreeMap<Key, Value> implements Map<Key, Value>
 {
+    private final Value defaultValue;
     private final Comparator<Key> comparator;
     private BTNode<KeyValuePair<Key, Value>> head;
     private int size;
 
-    public TreeMap(Comparator<Key> comparator)
+    public TreeMap(Comparator<Key> comparator, Value defaultValue)
     {
+        this.defaultValue = defaultValue;
         this.comparator = comparator;
         this.size = 0;
     }
@@ -24,6 +28,7 @@ public class TreeMap<Key, Value>
         this.head = source.head.copy();
         this.comparator = source.comparator;
         this.size = source.size;
+        this.defaultValue = source.defaultValue;
     }
 
     public Value put(Key key, Value value)
@@ -211,19 +216,6 @@ public class TreeMap<Key, Value>
         addKey(list, current.getRight());
     }
 
-    public HashSet<Key> keysAsSet() {
-        HashSet<Key> keySet = new HashSet<>();
-        addKey(keySet, head);
-        return keySet;
-    }
-
-    private void addKey(HashSet<Key> keySet, BTNode<KeyValuePair<Key, Value>> current) {
-        if (current == null) return;
-        addKey(keySet, current.getLeft());
-        keySet.add(current.getValue().getKey());
-        addKey(keySet, current.getRight());
-    }
-
     public DoublyLinkedList<KeyValuePair<Key, Value>> getEntries() {
         DoublyLinkedList<KeyValuePair<Key, Value>> entries = DoublyLinkedList.of();
         addEntry(entries, head);
@@ -244,6 +236,19 @@ public class TreeMap<Key, Value>
 
     public int size() {
         return size;
+    }
+
+    @Override
+    public KeySet<Key, Value> mutableKeySet() {
+        return new KeySet<>(this, defaultValue);
+    }
+
+    public SinglyLinkedList<Key> keys() {
+        LinkedList<KeyValuePair<Key, Value>> list = head.traverseInorder();
+        SinglyLinkedList<Key> keyList = new SinglyLinkedList<>();
+        for (KeyValuePair<Key, Value> entry : list)
+            keyList.push(entry.getKey());
+        return keyList;
     }
 
     public TreeMap<Key, Value> copy() {
