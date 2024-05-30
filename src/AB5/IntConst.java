@@ -83,6 +83,11 @@ public class IntConst implements LinearExpression {
         return new IntConst(-value);
     }
 
+    @Override
+    public IntConst largestCoefficient() {
+        return this;
+    }
+
     /**
      * Returns 'true' only if 'this' represents the value 0.
      * @return 'true' if 'this' represents the value 0, otherwise 'false'.

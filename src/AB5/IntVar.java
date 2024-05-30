@@ -72,6 +72,11 @@ public class IntVar implements IntVarTerm
     }
 
     @Override
+    public IntConst largestCoefficient() {
+        return getCoeff();
+    }
+
+    @Override
     public IntVarIterator iterator() {
         return new SEIterator<>(this);
     }

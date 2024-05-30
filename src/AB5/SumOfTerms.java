@@ -126,6 +126,17 @@ public class SumOfTerms implements LinearExpression
     }
 
     @Override
+    public IntConst largestCoefficient() {
+        IntConst largestCoeff = null;
+        IntVarQueue keys = map.keyQueue();
+        while (keys.size() > 0) {
+            IntConst key = map.get(keys.poll()).largestCoefficient();
+            if (largestCoeff == null || largestCoeff.lessThan(key)) largestCoeff = key;
+        }
+        return largestCoeff;
+    }
+
+    @Override
     public IntVarIterator iterator() {
         return new SumOfTermsIterator(map.keyQueue());
     }

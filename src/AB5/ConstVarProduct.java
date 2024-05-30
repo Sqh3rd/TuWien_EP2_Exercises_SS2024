@@ -54,6 +54,11 @@ public class ConstVarProduct implements IntVarTerm
     }
 
     @Override
+    public IntConst largestCoefficient() {
+        return coeff;
+    }
+
+    @Override
     public IntVarIterator iterator() {
         return new SEIterator<>(var);
     }

@@ -92,6 +92,21 @@ public class Test {
 
         System.out.println("\nTest6:");
         testEquals(e.assignValue(values).toString().replaceAll("\\s",""), "20");
+
+        IntConst ten = new IntConst(10);
+        testEquals(ten.largestCoefficient(), ten);
+
+        IntVar a = new IntVar("a");
+        testEquals(a.largestCoefficient(), LinearExpression.ONE);
+
+        ConstVarProduct tenA = new ConstVarProduct(ten, a);
+        testEquals(tenA.largestCoefficient(), ten);
+
+        IntConst twenty = new IntConst(20);
+        IntVar b = new IntVar("b");
+        ConstVarProduct twentyB = new ConstVarProduct(twenty, b);
+        LinearExpression tenAPlusTwentyY = tenA.plus(twentyB);
+        testEquals(tenAPlusTwentyY.largestCoefficient(), twenty);
     }
 
     /**

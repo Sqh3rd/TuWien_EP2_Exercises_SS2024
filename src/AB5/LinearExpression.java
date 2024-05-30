@@ -68,6 +68,8 @@ public interface LinearExpression extends IntVarIterable {
      */
     LinearExpression assignValue(IntVarConstMap varValues);
 
+    IntConst largestCoefficient();
+
     /**
      * A readable representation of this expression in which each of its variables appears only
      * once preceded by a coefficient, unless the coefficient is 1 or -1.
