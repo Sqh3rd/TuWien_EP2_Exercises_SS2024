@@ -69,8 +69,6 @@ public class Simulation {
                 new Vector3(3.781372641419032E11, 1.96718960466285E11, -6.366459168068592E10),
                 new Vector3(-8555.324226752316, 14718.33755980907, 2040.230135060142));
 
-        /* TODO: uncomment block:
-
         HierarchicalSystem marsSystem = new MultiBody(mars,
                 deimos, phobos);
         HierarchicalSystem earthSystem = new MultiBody(earth, moon);
@@ -125,7 +123,5 @@ public class Simulation {
 
             }
         }
-
-        //TODO: end of block to uncomment. */
     }
 }

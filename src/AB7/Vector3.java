@@ -4,6 +4,7 @@ package AB7;
  * This class represents vectors in a 3D vector space.
  */
 public class Vector3 {
+    public static final Vector3 ZERO = new Vector3(0, 0, 0);
 
     private double x;
     private double y;

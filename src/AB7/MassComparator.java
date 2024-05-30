@@ -16,8 +16,6 @@ public class MassComparator implements SystemComparator {
      * is less than, equal to, or greater than the second.
      */
     public int compare(HierarchicalSystem s1, HierarchicalSystem s2) {
-
-        //TODO: implement method.
-        return 0;
+        return Double.compare(s1.getMass(), s2.getMass());
     }
 }

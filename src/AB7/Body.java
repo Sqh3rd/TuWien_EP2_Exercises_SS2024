@@ -1,17 +1,14 @@
 package AB7;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
 
 /**
  * This class represents celestial bodies like stars, planets, asteroids, teapots, etc..
  * This class implements 'HierarchicalSystem'.
  */
-//
-// TODO: Complete this class definition. You can use the Java-Collection-Framework.
-//       You can define further classes and methods for the implementation.
-//
-public class Body // implements HierarchicalSystem //TODO: activate clause.
-{
+public class Body implements HierarchicalSystem {
 
     private String name;
     private double mass;
@@ -21,9 +18,9 @@ public class Body // implements HierarchicalSystem //TODO: activate clause.
     /**
      * Initializes this body.
      *
-     * @param name the name of this body, name != null.
-     * @param mass the mass of this body, mass > 0.
-     * @param massCenter the barycenter of this body, massCenter != null.
+     * @param name            the name of this body, name != null.
+     * @param mass            the mass of this body, mass > 0.
+     * @param massCenter      the barycenter of this body, massCenter != null.
      * @param currentMovement the current velocity vector, current movement != null.
      */
     public Body(String name, double mass, Vector3 massCenter, Vector3 currentMovement) {
@@ -75,6 +72,7 @@ public class Body // implements HierarchicalSystem //TODO: activate clause.
     }
 
     //@Override
+
     /**
      * Returns the approximate radius of this body.
      * (It is assumed that the radius r is related to the mass m of the body by
@@ -98,10 +96,11 @@ public class Body // implements HierarchicalSystem //TODO: activate clause.
      */
     public String toString() {
 
-        return name +": " + mass + " kg.";
+        return name + ": " + mass + " kg.";
     }
 
     //@Override
+
     /**
      * @return the name of this body.
      */
@@ -111,6 +110,7 @@ public class Body // implements HierarchicalSystem //TODO: activate clause.
     }
 
     //@Override
+
     /**
      * @return the mass of this body.
      */
@@ -120,6 +120,7 @@ public class Body // implements HierarchicalSystem //TODO: activate clause.
     }
 
     //@Override
+
     /**
      * @return the barycenter of 'this'.
      */
@@ -135,7 +136,19 @@ public class Body // implements HierarchicalSystem //TODO: activate clause.
 
         return currentMovement;
     }
+
+    @Override
+    public int getNumberOfBodies() {
+        return 1;
+    }
+
+    @Override
+    public Deque<Body> asOrderedList(SystemComparator comp) {
+        return new ArrayDeque<>(List.of(this));
+    }
+
+    @Override
+    public BodyIterator iterator() {
+        return BodyIteratorImpl.of(List.of(this).iterator());
+    }
 }
-
-// TODO: define further classes, if needed (either here or in a separate file).
-
