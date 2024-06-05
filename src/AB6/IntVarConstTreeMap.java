@@ -30,5 +30,9 @@ public class IntVarConstTreeMap extends TreeMap<IntVar, IntConst> implements Int
     public IntVarSet keySet() {
         return new IntVarKeySet(this);
     }
+
+    public IntVarSetSimple keySetWithout(IntVar v) {
+        return new IntVarSetSimpleImpl(this, v);
+    }
 }
 
