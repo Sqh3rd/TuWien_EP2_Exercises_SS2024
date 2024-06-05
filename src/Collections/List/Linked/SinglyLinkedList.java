@@ -183,7 +183,7 @@ public class SinglyLinkedList<T> implements LinkedList<T>
         return lastIndex;
     }
 
-    private T[] toArray() {
+    public T[] toArray() {
         T[] arr = (T[])new Object[size];
         LinkedEntry<T, SinglyLinkedEntry<T>> current = head;
         for (int i = 0; i < size; i++) {

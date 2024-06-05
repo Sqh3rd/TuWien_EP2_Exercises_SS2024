@@ -1,5 +1,6 @@
 package AB6;
 
+import Collections.List.Linked.SinglyLinkedList;
 import Collections.List.LinkedList;
 
 import java.util.Objects;
@@ -26,11 +27,11 @@ public class IntVarSetSimpleImpl implements IntVarSetSimple {
 
     @Override
     public IntVar[] asArray() {
-        LinkedList<IntVar> allKeys = map.keys();
+        SinglyLinkedList<IntVar> allKeys = map.keys();
         for (IntVar ignore : keysToIgnore) {
             int index = allKeys.indexOf(ignore);
             if (index >= 0) allKeys.remove(index);
         }
-        return new IntVar[0];
+        return allKeys.toArray();
     }
 }
