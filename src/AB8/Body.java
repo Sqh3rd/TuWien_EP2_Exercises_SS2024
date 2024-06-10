@@ -2,19 +2,15 @@ package AB8;
 
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class represents celestial bodies like stars, planets, asteroids, teapots, etc..
  * This class implements 'HierarchicalSystem'.
  */
-//
-// TODO: Complete this class definition. You can use the Java-Collection-Framework.
-//       You can define further classes and methods for the implementation.
-//
-public class Body // implements HierarchicalSystem //TODO: activate clause.
+public class Body implements HierarchicalSystem
 {
-
     private String name;
     private double mass;
     private Vector3 massCenter; // position of the center of mass == barycenter
@@ -147,6 +143,22 @@ public class Body // implements HierarchicalSystem //TODO: activate clause.
     public Vector3 getCurrentMovement() {
 
         return currentMovement;
+    }
+
+    @Override
+    public int getNumberOfBodies() {
+        return 1;
+    }
+
+    @Override
+    public Deque<Body> asOrderedList(SystemComparator comp) {
+        return Stream.of(this)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    public BodyIterator iterator() {
+        return SEBodyIterator.of(this);
     }
 }
 

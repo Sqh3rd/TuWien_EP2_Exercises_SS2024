@@ -1,8 +1,5 @@
 package AB8;
 
-import java.io.IOException;
-import java.util.*;
-
 /**
  * Simulates the solar system.
  */
@@ -65,7 +62,6 @@ public class Simulation {
         Body oumuamua = new Body("Oumuamua", 8e6);
         Body himalia = new Body("Himalia", 6.7E18);
 
-        /* TODO: uncomment this block:
         HierarchicalSystem marsSystem = new MultiBody(mars,
                 phobos, deimos);
         HierarchicalSystem earthSystem = new MultiBody(earth, moon);
@@ -77,9 +73,42 @@ public class Simulation {
                 earthSystem, jupiterSystem, saturnSystem, uranus, neptune, venus, vesta, pallas,
                 hygiea, ceres, halley, voyager1, voyager2, oumuamua);
 
-        //TODO: end of block to uncomment.*/
+        double seconds = 0;
 
-        //TODO ('Bonusaufgabe'): implement simulation including validation of external data
-        // according to 'Aufgabenblatt8.md'.
+        // simulation loop
+        while (true) {
+            seconds++; // each iteration computes the movement of the celestial bodies within one second.
+
+            // for each body (with index i): compute its total acceleration.
+            for (Body toProcess: solarSystem) {
+                Vector3 acceleration = new Vector3(0, 0, 0); // begin with zero
+                for (Body partner: solarSystem) {
+                    if (partner.equals(toProcess)) continue;
+                    Vector3 accelerationToAdd = toProcess.acceleration(partner);
+                    acceleration = acceleration.plus(accelerationToAdd);
+                }
+//                map.put(toProcess, acceleration);
+            }
+
+            // now map associates for each body its current acceleration vector.
+
+            // for each body: accelerate it for one second.
+            for (Body toProcess: solarSystem) {
+//                toProcess.accelerate(map.get(toProcess));
+            }
+
+            // show all movements in the canvas only every 20 minutes (to speed up the simulation)
+            if (seconds % (1200) == 0) {
+                // clear old positions (exclude the following line if you want to draw orbits).
+
+                //System.out.println(seconds);
+
+                // draw new positions
+//                spaceDrawSolar.draw();
+//                spaceDrawEarth.draw();
+//                spaceDrawMars.draw();
+
+            }
+        }
     }
 }

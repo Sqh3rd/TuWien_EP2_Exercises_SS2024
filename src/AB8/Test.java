@@ -15,8 +15,6 @@ public class Test {
      */
     public static void main(String[] args) {
 
-        /* TODO: activate block:
-
         // create solar system with 12 bodies
         Body sun = new Body("Sun", 1.989E30,
                 new Vector3(0.0, 0.0, 0.0), new Vector3(0.0, 0.0, 0.0));
@@ -171,8 +169,6 @@ public class Test {
             }
             set.add(b);
         }
-
-        // TODO: end of block to uncomment. */
     }
 
     /**

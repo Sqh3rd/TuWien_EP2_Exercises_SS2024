@@ -16,8 +16,6 @@ public class NameComparator implements SystemComparator {
      * is less than, equal to, or greater than the second.
      */
     public int compare(HierarchicalSystem b1, HierarchicalSystem b2) {
-
-        //TODO: implement method.
-        return 0;
+        return b1.getName().compareTo(b2.getName());
     }
 }

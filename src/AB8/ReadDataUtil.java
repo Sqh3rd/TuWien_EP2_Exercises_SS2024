@@ -1,6 +1,7 @@
 package AB8;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -23,11 +24,11 @@ public class ReadDataUtil {
      * it does not comply with the format described above, the method throws an exception of type
      * 'StateFileFormatException'. Both exceptions are subtypes of 'IOException'.
      *
-     * @param b the body for which the state has to be set, b != null.
+     * @param b    the body for which the state has to be set, b != null.
      * @param path the path to the text file with the data of the body, path != null.
-     * @param day a string with the date of the body's state in the format YYYY-MM-DD, day != null.
+     * @param day  a string with the date of the body's state in the format YYYY-MM-DD, day != null.
      * @return 'true' if the state was set successfully or 'false' if the specified 'day'
-     *      was not found in the file.
+     * was not found in the file.
      * @throws IOException an exception indicating a format error or that the file was not found.
      */
     public static boolean readConfiguration(Body b, String path, String day) throws IOException {
@@ -37,11 +38,10 @@ public class ReadDataUtil {
         BufferedReader in = null;
         boolean found = false;
 
-        Reader r = new FileReader(path);
-        in = new BufferedReader(r);
-        in.close();
+        if (!new File(path).isFile())
+            throw new StateFileNotFoundException(path);
 
-        r = new FileReader(path);
+        Reader r = new FileReader(path);
         in = new BufferedReader(r);
 
         String line;
@@ -49,26 +49,29 @@ public class ReadDataUtil {
         // consume irrelevant part
         while ((line = in.readLine()) != null && !line.equals("$$SOE")) ;
 
+        int lineNo = 0;
         // now read data
         while (!found && (line = in.readLine()) != null && !line.equals("$$EOE")) {
             String[] fields = line.split(",");
 
+            if (fields.length != 8)
+                throw StateFileFormatException.fromIncorrectColumnCount(lineNo, fields.length);
+
             Vector3 position;
             Vector3 velocity;
-            if (fields.length == 8) {
-                position = new Vector3(Double.parseDouble(fields[2]),
-                        Double.parseDouble(fields[3]),
-                        Double.parseDouble(fields[4]));
-                velocity = new Vector3(Double.parseDouble(fields[5]),
-                        Double.parseDouble(fields[6]),
-                        Double.parseDouble(fields[7]));
+            position = new Vector3(Double.parseDouble(fields[2]),
+                Double.parseDouble(fields[3]),
+                Double.parseDouble(fields[4]));
+            velocity = new Vector3(Double.parseDouble(fields[5]),
+                Double.parseDouble(fields[6]),
+                Double.parseDouble(fields[7]));
 
-                if (fields[1].contains(day)) {
-                    found = true;
-                    //TODO: activate statement:
-                    // b.setState(position.times(1000), velocity.times(1000));
-                }
+            if (fields[1].contains(day)) {
+                found = true;
+                //TODO: activate statement:
+                // b.setState(position.times(1000), velocity.times(1000));
             }
+            lineNo++;
         }
         return found;
     }
